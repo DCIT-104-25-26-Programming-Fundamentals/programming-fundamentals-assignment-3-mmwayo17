@@ -48,5 +48,33 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+import readlineSync from "readline-sync"
 
+function getGrade(score){
+    if(score < 0 || score > 100){
+        return null;
+    }
 
+    if(score >= 80){
+        return "Grade: A"
+    }else if(score >= 70){
+        return "Grade: B"
+    }else if(score >= 60){
+        return "Grade: C"
+    }else if(score >= 50){
+        return "Grade: D"
+    }else{
+        return "Grade: F"
+    }
+}
+
+function main(){
+    const score = readlineSync.questionInt("Enter Student Score: ")
+    if(getGrade(score)){
+        console.log(getGrade(score))
+    }else{
+        console.log("Out of range.")
+    }   
+}
+
+main()

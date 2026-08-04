@@ -49,7 +49,7 @@ function isPrime(num){
         return false;
     };
 
-    for(let i = 2; i < num; i++){
+    for(let i = 2; i < 10; i++){
         if(num % i == 0 && num != i){
             return false;
         };
