@@ -80,5 +80,74 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+import readlineSync from "readline-sync"
 
+function add(list){
+    const task = readlineSync.question("Enter task: ")
+    list.push(task)
+    console.log(`Task added: "${task}"`)
+}
 
+function view(list){
+    console.log("Your Tasks:")
+    for(let i = 0; i < list.length; i++){
+        console.log(`${i + 1}. ${list[i]}`)
+    }
+}
+
+function remove(list){
+    try{
+        const remove_item_no = readlineSync.questionInt("Enter task number to delete: ");
+
+        if(remove_item_no <= list.length){
+            const removed_item = list.splice(remove_item_no - 1, 1)
+            console.log(`Task "${removed_item}" has been removed.`)
+        }else{
+            console.log("No task at that value")
+        }   
+    }catch(error){
+        console.error("Invalid Input")
+    }
+
+}
+
+function main(){
+    let todos = []
+    
+    while (true){
+        console.log("============================");
+        console.log("TO-DO LIST MENU");
+        console.log("============================");
+        console.log("1. Add task");
+        console.log("2. View tasks");   
+        console.log("3. Delete task");
+        console.log("4. Quit");
+
+        try{
+            const choice = readlineSync.questionInt("Enter your choice (1-4): ")
+
+            switch(choice){
+                case 1:
+                    add(todos)
+                    break;
+                case 2:
+                    view(todos);
+                    break;
+                case 3:
+                    remove(todos)
+                    break;
+                case 4:
+                    console.log("Goodbye!")
+                    return;
+                    break;
+                default:
+                    console.log("Not an option.")
+                    break;
+        }
+        }catch(error){
+            console.error("Invalid Input.")
+        }
+    }
+}
+
+main()
