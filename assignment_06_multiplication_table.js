@@ -58,5 +58,33 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+import readlineSync from 'readline-sync'
 
 
+function generate_single_table(num){
+    console.log(`Multiplication Table for ${num}: `);
+    for(let i =1; i< 13; i++){
+        console.log(`${num} x ${i} = ${num * i}`);
+    }
+    console.log("---------------------------");
+}
+
+function generate_multiple_tables(num){
+    if(num < 1){
+        console.log("Invalid Input must be above 0.");
+        return;
+    }
+    for(let i = 1; i < num + 1; i++){
+        generate_single_table(i);
+    }
+}
+
+function main(){
+    const number = readlineSync.questionInt("Enter Number: ");
+    generate_single_table(number);
+
+    const length = readlineSync.questionInt("Enter Number of tables to generate: ")
+    generate_multiple_tables(length)
+}
+
+main();
