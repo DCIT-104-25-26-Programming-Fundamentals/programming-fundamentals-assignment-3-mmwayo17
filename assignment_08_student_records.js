@@ -83,5 +83,89 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+import readlineSync from "readline-sync"
 
+function add(students){
+    let student = {};
+    const name = readlineSync.question("Student Name: ");
+    const id = readlineSync.questionInt("Student ID: ");
+    const scores = [];
+    const number = readlineSync.questionInt("How many scores? ")
 
+    for(let i = 1; i < number + 1; i++){
+        scores.push(readlineSync.questionInt(`Enter score ${i}: `))
+    }
+
+    student.name = name;
+    student.id = id;
+    student.scores = scores;
+
+    students.push(student)
+    console.log(`Student "${student.name}" added successfully.`)
+}
+
+function display(students){
+    console.log("Student Records:");
+    for(let i = 0; i < students.length; i++){
+        console.log(`Name: ${students[i].name}`);
+        console.log(`Id: ${students[i].id}`);
+        console.log(`Scores: ${students[i].scores}`);
+        console.log(`Average: ${average(students[i].scores)}`);
+        console.log("---------------------------");
+    }
+}
+
+function average(scores){
+    let sum = 0;
+    for(let i = 0; i < scores.length; i++){
+        sum += scores[i]
+    }
+
+    return (sum/scores.length).toFixed(2);
+}
+
+function main(){
+    let students = [];
+
+    while(true){
+        try{ 
+            console.log("================================");
+            console.log("   STUDENT RECORD SYSTEM MENU");
+            console.log("================================");
+            console.log("1. Add student");
+            console.log("2. Display all students");
+            console.log("3. Calculate average score");
+            console.log("4. Quit");
+            const choice = readlineSync.questionInt("Enter your choice (1-4): ");
+
+            switch(choice){
+                case 1:
+                    add(students);
+                    break;
+                case 2:
+                    display(students);
+                    break;
+                case 3:
+                    const studentId = readlineSync.questionInt("Enter student ID: ")
+                    for(let i = 0; i < students.length; i++){
+                        if(students[i].id == studentId){
+                            console.log(`${students[i].name} average score: ${average(students[i].scores)}`);
+                            return;
+                        }
+                    }
+                    
+                    break;
+                case 4:
+                    console.log("Goodbye!")
+                    return;
+                    break;
+                default:
+                    console.log("Not an option. Choose from 1-4.")
+            }
+        }catch(error){
+            console.error("Invalid Input");
+        }
+    }
+}
+
+main()
