@@ -53,5 +53,64 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+import readlineSync from 'readline-sync'
 
+function generate_fibonacci_sequence(number){
+    let nums = [0, 1];
+    let sequence = ""
+    if(number == 2){
+        return `${nums[0]} ${nums[1]}`;
+    }
+    else if(number == 1){
+        return "0";
+    }
+    
+    for(let i = 0; i < number - 2; i++){
+        nums.push(nums[i] + nums[i + 1]);
+    }
 
+    for(let i = 0; i < nums.length; i++){
+        sequence += nums[i] +' '
+    }
+
+    return sequence
+}
+
+function check_num(num){
+    if(num == 1 || num == 0){
+        return true;
+    };
+
+    let nums = [0, 1];
+    for(let i = 0; i < num; i++){
+        if(num == nums[i] || num == nums[i] + nums[i + 1]){
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function main(){
+    let length = readlineSync.questionInt("How many terms? ");
+    if(length < 1){
+        console.log("Input must be greater than 0.")
+        return;
+    }
+    console.log(generate_fibonacci_sequence(length));
+
+    let number = readlineSync.questionInt("Enter a number to check: ");
+    if(number < 0){
+        console.log("Input must be positive")
+        return;
+    }
+
+    if(check_num(number)){
+        console.log(`${number} is a Fibonacci number.`)
+    }else{
+        console.log(`${number} is NOT a Fibonacci number.`)
+    }
+    
+}
+
+main()
